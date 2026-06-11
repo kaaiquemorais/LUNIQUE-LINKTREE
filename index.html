@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>L'Unique Odontologia · Dra. Gislene</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy:      #1D2B5F;
+      --navy-deep: #141d42;
+      --gold:      #C9A84C;
+      --gold-lt:   #E2C76A;
+      --gold-dk:   #9E7A1E;
+      --gold-glow: rgba(201,168,76,.35);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+      font-family: 'Lato', sans-serif;
+    }
+
+    /* ═══════════════════════════════
+       TELA — ocupa exatamente a viewport
+    ═══════════════════════════════ */
+    .screen {
+      position: relative;
+      width: 100vw;
+      height: 100dvh; /* dynamic viewport: desconta a barra do browser */
+      min-height: 100svh;
+      overflow: hidden;
+    }
+
+    /* ── Imagem de fundo ── */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image: url('https://lunique-odontologia.netlify.app/expert/hero-mobile.svg');
+      background-repeat: no-repeat;
+    }
+
+    /* ── Degradê inferior — cobre o terço de baixo ── */
+    .hero-gradient {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(
+        to top,
+        #fff 0%,
+        #fff 35%,
+        rgba(255,255,255,.9) 52%,
+        rgba(255,255,255,.35) 68%,
+        transparent 82%
+      );
+    }
+
+    /* ── Degradês laterais ── */
+    .side-l, .side-r {
+      position: absolute;
+      top: 0; bottom: 0;
+      z-index: 2;
+      pointer-events: none;
+      width: 50%;
+    }
+
+    /* ── Conteúdo ancorado na base ── */
+    .hero-content {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      /* gap e padding fluid — adaptam a qualquer altura */
+      gap: clamp(4px, 1.2dvh, 10px);
+      padding:
+        0
+        clamp(16px, 5vw, 28px)
+        clamp(16px, 3.5dvh, 36px);
+    }
+
+    /* Logo */
+    .logo-wrap img {
+      height: clamp(28px, 4.5dvh, 44px);
+      width: auto;
+      display: block;
+    }
+
+    /* Frase */
+    .hero-headline {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.15rem, 3.8dvh, 2rem);
+      font-weight: 500;
+      line-height: 1.22;
+      letter-spacing: -.01em;
+      color: var(--navy);
+    }
+
+    .hero-headline em {
+      font-style: italic;
+      color: var(--gold-dk);
+    }
+
+    /* Botões */
+    .buttons {
+      width: 100%;
+      max-width: min(360px, 88vw);
+      display: flex;
+      flex-direction: column;
+      gap: clamp(6px, 1dvh, 10px);
+    }
+
+    .btn-wa {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: clamp(11px, 2dvh, 15px) 20px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-family: 'Lato', sans-serif;
+      font-size: clamp(11px, 1.8dvh, 13px);
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #fff;
+      background: linear-gradient(135deg, var(--gold-dk) 0%, var(--gold) 45%, var(--gold-lt) 60%, var(--gold) 100%);
+      background-size: 200% auto;
+      box-shadow: 0 4px 20px var(--gold-glow);
+      position: relative;
+      overflow: hidden;
+      transition: transform .2s, box-shadow .25s;
+    }
+
+    .btn-wa::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 55%; height: 100%;
+      background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,.38) 50%, transparent 80%);
+      transform: skewX(-18deg);
+      animation: shine 2.8s ease-in-out 1.5s infinite;
+    }
+
+    .btn-wa:hover  { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(201,168,76,.5); }
+    .btn-wa:active { transform: scale(0.97); }
+
+    .btn-site {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: clamp(9px, 1.8dvh, 13px) 20px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-family: 'Lato', sans-serif;
+      font-size: clamp(11px, 1.8dvh, 13px);
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: transparent;
+      border: 1.5px solid rgba(29,43,95,.28);
+      transition: border-color .2s, background .2s;
+    }
+
+    .btn-site:hover  { border-color: rgba(29,43,95,.5); background: rgba(29,43,95,.04); }
+    .btn-site:active { background: rgba(29,43,95,.08); }
+
+    /* Assinatura */
+    .signature {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(9px, 1.4dvh, 11px);
+      font-style: italic;
+      color: rgba(29,43,95,.3);
+    }
+
+    @keyframes shine {
+      0%   { left: -100%; }
+      22%  { left: 120%; }
+      100% { left: 120%; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo-wrap     { animation: fadeUp .7s cubic-bezier(.22,1,.36,1) .05s both; }
+    .hero-headline { animation: fadeUp .8s cubic-bezier(.22,1,.36,1) .15s both; }
+    .buttons       { animation: fadeUp .7s cubic-bezier(.22,1,.36,1) .28s both; }
+    .signature     { animation: fadeUp .6s cubic-bezier(.22,1,.36,1) .38s both; }
+
+    /* ═══════════════════════════════
+       MOBILE — imagem cobre a tela
+    ═══════════════════════════════ */
+    @media (max-width: 767px) {
+      .hero-bg {
+        background-size: cover;
+        background-position: top center;
+      }
+
+      .side-l {
+        left: 0;
+        background: linear-gradient(to right,
+          #fff,
+          rgba(255,255,255,.5) 38%,
+          transparent 72%
+        );
+      }
+
+      .side-r {
+        right: 0;
+        background: linear-gradient(to left,
+          #fff,
+          rgba(255,255,255,.5) 38%,
+          transparent 72%
+        );
+      }
+    }
+
+    /* ═══════════════════════════════
+       DESKTOP — imagem centralizada
+       Proporção ≈ 390:844 → largura ≈ 46.2dvh
+       Borda esquerda ≈ 50vw − 23dvh
+    ═══════════════════════════════ */
+    @media (min-width: 768px) {
+      .hero-bg {
+        background-size: contain;
+        background-position: center top;
+      }
+
+      .side-l {
+        left: 0;
+        background: linear-gradient(to right,
+          #fff,
+          #fff                    calc(50vw - 28dvh),
+          rgba(255,255,255,.8)    calc(50vw - 22dvh),
+          rgba(255,255,255,.35)   calc(50vw - 15dvh),
+          transparent             calc(50vw - 9dvh)
+        );
+      }
+
+      .side-r {
+        right: 0;
+        background: linear-gradient(to left,
+          #fff,
+          #fff                    calc(50vw - 28dvh),
+          rgba(255,255,255,.8)    calc(50vw - 22dvh),
+          rgba(255,255,255,.35)   calc(50vw - 15dvh),
+          transparent             calc(50vw - 9dvh)
+        );
+      }
+
+      .hero-headline { color: var(--navy); }
+    }
+
+    /* ═══════════════════════════════
+       PAISAGEM em mobile — tudo mais compacto
+    ═══════════════════════════════ */
+    @media (max-height: 500px) {
+      .hero-content { gap: clamp(2px, 1dvh, 6px); }
+
+      .logo-wrap img { height: clamp(22px, 4dvh, 30px); }
+
+      .hero-headline {
+        font-size: clamp(1rem, 4dvh, 1.3rem);
+        /* uma linha só em paisagem */
+        br { display: none; }
+      }
+
+      .buttons { gap: 5px; }
+
+      .btn-wa, .btn-site {
+        padding: clamp(8px, 1.8dvh, 11px) 16px;
+      }
+
+      .signature { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="screen">
+
+  <div class="hero-bg"></div>
+
+  <div class="side-l"></div>
+  <div class="side-r"></div>
+
+  <div class="hero-gradient"></div>
+
+  <div class="hero-content">
+
+    <div class="logo-wrap">
+      <img
+        src="https://lunique-odontologia.netlify.app/logos/logo-full.webp"
+        alt="L'Unique Odontologia"
+        onerror="this.src='https://lunique-odontologia.netlify.app/logos/logo-full.png'"
+      >
+    </div>
+
+    <h1 class="hero-headline">
+      Devolvo a autoestima com o<br>
+      <em>sorriso dos sonhos.</em>
+    </h1>
+
+    <div class="buttons">
+      <a
+        class="btn-wa"
+        href="https://wa.me/5511972277700?text=Ol%C3%A1%2C%20Dra.%20Gislene!%20Gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o."
+        target="_blank" rel="noopener"
+      >
+        Agendar sua avaliação
+      </a>
+      <a
+        class="btn-site"
+        href="https://lunique-odontologia.netlify.app"
+        target="_blank" rel="noopener"
+      >
+        Conheça o nosso site
+      </a>
+    </div>
+
+    <p class="signature">Dra. Gislene · Bragança Paulista – SP</p>
+
+  </div>
+
+</div>
+
+</body>
+</html>
